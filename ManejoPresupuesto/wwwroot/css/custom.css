@@ -1,0 +1,50 @@
+﻿/* --- Estilos del área de arrastre --- */
+.handle {
+    cursor: grab;
+    user-select: none;
+    width: 40px;
+}
+
+.handle:active {
+    cursor: grabbing;
+
+}
+
+.drag-icon {
+    font-size: 1.3rem;
+    color: #6c757d;
+    transition: color 0.2s ease;
+}
+
+.handle:hover .drag-icon {
+    color: #0d6efd;
+}
+
+/* --- Estilo del elemento mientras se arrastra --- */
+.dragging {
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* --- Espacio visible donde se soltará el elemento --- */
+.sortable-placeholder {
+    height: 48px;
+    background-color: #e9ecef;
+    border: 2px dashed #adb5bd;
+}
+
+/* --- Tabla y botones más elegantes --- */
+table.table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.btn {
+    border-radius: 0.5rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f3f6fa;
+}
