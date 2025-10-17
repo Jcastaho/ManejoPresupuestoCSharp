@@ -3,11 +3,19 @@
     ViewData["Title"] = "Borrar Tipo Cuenta";
 }
 
-<h3 class="mb-3">¿Esta seguro que desea borrar el tipo cuenta @Model.Nombre?</h3>
+<div class="header-content">
+    <div class="header-text">
+        <h1 class="page-title">
+            <i class="bi bi-exclamation-octagon-fill text-danger me-2"></i>
+            ¿Esta seguro que desea borrar el tipo cuenta "@Model.Nombre"?
+        </h1>
+    </div>
+</div>
+
+<h3 class="mb-3"></h3>
 
 <form asp-action="BorrarTipoCuenta">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Borrar</button>
-    <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
-
+    <button type="submit" class="btn btn-outline-danger">Borrar</button>
+    <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
 </form>

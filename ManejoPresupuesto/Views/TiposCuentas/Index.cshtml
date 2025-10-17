@@ -4,13 +4,24 @@
     ViewData["Title"] = "Tipos de Cuentas";
 }
 
-<h1>Tipos Cuentas</h1>
+<div class="page-header">
+    <div class="header-content">
+        <div class="header-text">
+            <h1 class="page-title">
+                <i class="bi bi-wallet2 me-2 text-primary"></i> Tipos de Cuentas
+            </h1>
+            <p class="page-description">
+                Los tipos de cuenta permiten organizar tus finanzas agrupando movimientos según su naturaleza, por ejemplo: préstamos, tarjetas de crédito o cuentas bancarias
+            </p>
+        </div>
+        <div class="header-action">
+            <a asp-action="Crear" class="btn btn-primary btn-create shadow">
+                <i class="bi bi-plus-lg me-2"></i> Crear nuevo
+            </a>
+        </div>
+    </div>
+</div>
 
-<h5>El tipo de cuenta se refiere a como podemos agrupar cuentas.
-    Ejemplos: Prestamos, tarjetas de credito, etc.
-</h5>
-
-<a asp-action="Crear" class="btn btn-primary mb-3"> Crear nuevo</a>
 
 <table class="table align-middle table-hover shadow-sm rounded-3 overflow-hidden">
     <thead class="table-light">
