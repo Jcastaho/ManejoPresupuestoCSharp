@@ -1,0 +1,129 @@
+﻿@model IEnumerable<IndiceCuentasViewModel>
+@{
+    ViewData["Title"] = "Cuentas";
+    string FormatearBalance(decimal balance)
+    {
+        return Math.Abs(balance).ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("es-CO"));
+    }
+
+    string FormatearBalanceAbsoluto(decimal balance)
+    {
+        return Math.Abs(balance).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("es-CO"));
+    }
+
+    string ObtenerClaseBalance(decimal balance)
+    {
+        return balance >= 0 ? "activo" : "pasivo";
+    }
+}
+
+
+<div class="vista-cuentas-moderna animate__animated animate__fadeIn">
+
+    <div class="header-cuentas mb-4 ">
+        <h1><i class="bi bi-wallet2 me-3 text-primary"></i>Panel de Cuentas</h1>
+        <a asp-action="Crear" class="btn btn-primary shadow-sm">
+            <i class="bi bi-plus-circle-fill me-2"></i>Crear Nueva Cuenta
+        </a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        @{
+            var totalActivos = Model.Where(x => x.Balance > 0).Sum(x => x.Balance);
+            var totalPasivos = Model.Where(x => x.Balance < 0).Sum(x => x.Balance);
+            var totalNeto = Model.Sum(x => x.Balance);
+        }
+
+        <div class="col-md-4">
+            <div class="card total-card shadow-sm total-activo">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="info">
+                            <h6 class="card-subtitle mb-2 text-muted">Activos</h6>
+                            <h2 class="card-title balance">$@FormatearBalance(totalActivos)</h2>
+                        </div>
+                        <div class="icon-wrapper">
+                            <i class="bi bi-arrow-up-circle-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card total-card shadow-sm total-pasivo">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="info">
+                            <h6 class="card-subtitle mb-2 text-muted">Pasivos</h6>
+                            <h2 class="card-title balance">$@FormatearBalance(totalPasivos)</h2>
+                        </div>
+                        <div class="icon-wrapper">
+                            <i class="bi bi-arrow-down-circle-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card total-card shadow-sm total-neto @(totalNeto >= 0 ? "total-activo" : "total-pasivo")">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="info">
+                            <h6 class="card-subtitle mb-2 text-muted">Total Neto</h6>
+                            <h2 class="card-title balance">$@FormatearBalance(totalNeto)</h2>
+                        </div>
+                        <div class="icon-wrapper">
+                            <i class="bi bi-pie-chart-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion acordeon-cuentas-moderno shadow-sm" id="acordeonCuentas">
+        @foreach (var tipoCuenta in Model)
+        {
+            var id = "cuentas-" + tipoCuenta.TipoCuenta.Replace(" ", "");
+            var dataBSTarget = "#" + id;
+            var claseTipoCuenta = ObtenerClaseBalance(tipoCuenta.Balance);
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="header-@id">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@dataBSTarget" aria-expanded="false" aria-controls="@id">
+                        <span class="tipo-cuenta-icono me-3">
+                            <i class="bi bi-collection-fill"></i>
+                        </span>
+                        <span class="tipo-cuenta-nombre">
+                            @tipoCuenta.TipoCuenta
+                            <span class="contador-cuentas">@tipoCuenta.Cuentas.Count() @(tipoCuenta.Cuentas.Count() == 1 ? "cuenta" : "cuentas")</span>
+                        </span>
+                        <span class="balance-tipo-cuenta ms-auto @claseTipoCuenta">
+                            $@FormatearBalance(tipoCuenta.Balance)
+                        </span>
+                    </button>
+                </h2>
+                <div id="@id" class="accordion-collapse collapse" aria-labelledby="header-@id" data-bs-parent="#acordeonCuentas">
+                    <div class="accordion-body p-0">
+                        <ul class="list-group list-group-flush lista-cuentas-detalle">
+                            @foreach (var cuenta in tipoCuenta.Cuentas)
+                            {
+                                var claseCuenta = ObtenerClaseBalance(cuenta.Balance);
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="nombre-cuenta">
+                                        @cuenta.Nombre
+                                    </span>
+                                    <span class="balance-cuenta-badge @claseCuenta">
+                                        $@FormatearBalance(cuenta.Balance)
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
