@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<IndiceCuentasViewModel>
 @{
     ViewData["Title"] = "Cuentas";
+
     string FormatearBalance(decimal balance)
     {
         return Math.Abs(balance).ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("es-CO"));
-    }
-
-    string FormatearBalanceAbsoluto(decimal balance)
-    {
-        return Math.Abs(balance).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("es-CO"));
     }
 
     string ObtenerClaseBalance(decimal balance)
@@ -28,7 +24,7 @@
     </div>
 
     <div class="row g-3 mb-4">
-        @{
+        @{            
             var totalActivos = Model.Where(x => x.Balance > 0).Sum(x => x.Balance);
             var totalPasivos = Model.Where(x => x.Balance < 0).Sum(x => x.Balance);
             var totalNeto = Model.Sum(x => x.Balance);
@@ -115,6 +111,12 @@
                                     <span class="nombre-cuenta">
                                         @cuenta.Nombre
                                     </span>
+                                    <a asp-action="Editar" asp-route-id="@cuenta.Id" class="btn btn-sm btn-outline-primary me-3">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a asp-action="Editar" asp-route-id="@cuenta.Id" class="btn btn-sm btn-outline-danger me-3">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
                                     <span class="balance-cuenta-badge @claseCuenta">
                                         $@FormatearBalance(cuenta.Balance)
                                     </span>
