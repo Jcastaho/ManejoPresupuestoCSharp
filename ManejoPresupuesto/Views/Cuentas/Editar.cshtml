@@ -46,12 +46,11 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script>
-                //*******Pone bonito el numero de Balance***********//
+    <script>     
         const balanceInput = document.getElementById("Balance");
          const operacionSelect = document.getElementById("Operacion");
 
-         //******* 1. Pone bonito el numero de Balance al Cargar (CORREGIDO) ***********//
+         //*******  Pone bonito el numero de Balance al Cargar ***********//
 
          // Obtenemos el valor crudo que viene del Modelo (ej: "5000.00" o "-2000,00")
          let rawValue = balanceInput.value;
@@ -75,7 +74,7 @@
              balanceInput.value = absValue.toLocaleString('es-CO');
          }
 
-         //******* 2. Reaplicar formato mientras se escribe (Tu código original) ***********//
+         //******* 2. Reaplicar formato mientras se escribe ***********//
          balanceInput.addEventListener("input", (e) => {
              let valor = e.target.value.replace(/\D/g, ""); // eliminar todo excepto dígitos
 
@@ -87,7 +86,7 @@
              }
          });
 
-         //******* 3. Quitar formato y aplicar signo antes de enviar (Tu código original) ***********//
+         //******* 3. Quitar formato y aplicar signo antes de enviar  ***********//
          document.querySelector("form").addEventListener("submit", () => {
              // Quitar los puntos (separadores de mil de 'es-CO')
              let valorLimpio = balanceInput.value.replace(/\./g, "");
