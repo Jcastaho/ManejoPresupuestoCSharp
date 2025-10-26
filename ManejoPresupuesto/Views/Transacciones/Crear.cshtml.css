@@ -1,0 +1,124 @@
+﻿/* Fondo y contenedor */
+.transaccion-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(180%);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    width: 600px;
+    max-width: 95%;
+    color: #fff;
+    animation: fadeUp 1s ease-out;
+}
+
+/* Títulos */
+.titulo-form {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.9);
+  
+}
+
+.subtitulo {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 30px;
+}
+
+/* Inputs */
+.form-floating label,
+.form-label {
+    color: #b9c9d8;
+}
+
+.form-control,
+.form-select {
+    background: rgba(194, 219, 254);
+    border: 1px solid rgba(194, 219, 254);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: rgba(194, 219, 254);
+    box-shadow: 0 0 10px rgba(194, 219, 254);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Animación al entrar */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botones */
+.neon-btn {
+    background: linear-gradient(90deg, #00eaff, #00bcd4);
+    border: none;
+    color: #0b132b;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 234, 255, 0.6);
+}
+
+.neon-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 234, 255, 0.9);
+
+}
+
+.ghost-btn {
+    border: 1px solid #00eaff;
+    color: #00eaff;
+    background: transparent;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.ghost-btn:hover {
+    background: #00eaff;
+    color: #0b132b;
+}
+
+/* Agrupaciones y márgenes */
+.grupo {
+    margin-bottom: 18px;
+}
+
+.monto-input .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.op-select {
+    background: rgba(0, 255, 120, 0.9);
+    color: #0b132b;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-actions {
+    text-align: center;
+    margin-top: 30px;
+}

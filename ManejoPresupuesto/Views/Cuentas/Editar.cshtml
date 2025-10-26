@@ -30,7 +30,7 @@
                 <option value="negativo">Resta (-)</option>
             </select>
             <input type="text" asp-for="Balance" class="form-control" id="Balance" placeholder="Ej: 50.000" />
-        </div>   
+        </div>
     </div>
 
     <div class="mb-3">
@@ -46,7 +46,8 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script>     
+    <script>
+
         const balanceInput = document.getElementById("Balance");
          const operacionSelect = document.getElementById("Operacion");
 
@@ -101,6 +102,6 @@
              }
 
              balanceInput.value = valorLimpio;
-         });
+         });      
     </script>
 }

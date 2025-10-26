@@ -1,0 +1,170 @@
+﻿@model TransaccionCreacionViewModel
+
+@{
+    ViewData["Title"] = "Crear Transacción";
+}
+
+<div class="transaccion-container">
+   
+    <div class="transaccion-card glass-card fade-in">
+        <div class="page-header text-center">
+            <div class="header-content d-flex flex-column align-items-center">
+                <div class="header-text">
+                    <h1 class="page-title">
+                        💸 Crear Transacción
+                    </h1>
+                    <p class="page-description">
+                        Registra tus ingresos o gastos de forma rápida y moderna
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <form asp-action="Crear" class="animate-form">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-floating grupo">
+                <input asp-for="FechaTransaccion" type="date" class="form-control" placeholder="Fecha" />
+                <label asp-for="FechaTransaccion"></label>
+            </div>
+
+            <div class="form-floating grupo">
+                <select asp-for="CuentaId" asp-items="Model.Cuentas" class="form-select">
+                    <option value="">-- Seleccione una cuenta --</option>
+                </select>
+                <label asp-for="CuentaId"></label>
+            </div>
+
+            <div class="form-floating grupo">
+                <select asp-for="TipoOperacionId" class="form-select"
+                        asp-items="Html.GetEnumSelectList<TipoOperacion>()">
+                    <option value="">-- Tipo de operación --</option>
+                </select>
+                <label asp-for="TipoOperacionId"></label>
+            </div>
+
+            <div class="form-floating grupo">
+                <select asp-for="CategoriaId" class="form-select"></select>
+                <label asp-for="CategoriaId"></label>
+            </div>
+
+            <div class="grupo monto-input">
+                <label asp-for="Monto" class="form-label"></label>
+                <div class="input-group">
+                    <select id="Operacion" class="form-select op-select">
+                        <option value="positivo">Suma (+)</option>
+                        <option value="negativo">Resta (-)</option>
+                    </select>
+                    <input asp-for="Monto" id="Monto" class="form-control" placeholder="Ej: 50.000" />
+                </div>
+            </div>
+
+            <div class="form-floating grupo">
+                <textarea asp-for="Nota" class="form-control" placeholder="Ingrese una nota..."></textarea>
+                <label asp-for="Nota"></label>
+            </div>
+
+            <div class="btn-actions mt-4">
+                <button type="submit" class="btn btn-primary neon-btn">Crear</button>
+                <a asp-action="Index" class="btn btn-secondary ghost-btn">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const urlObtenerCategorias = '@Url.Action("ObtenerCategorias")';
+        const balanceInput = document.getElementById("Monto");
+        const operacionSelect = document.getElementById("Operacion");
+
+         //*******  Pone bonito el numero de Balance al Cargar ***********//
+
+         // Obtenemos el valor crudo que viene del Modelo (ej: "5000.00" o "-2000,00")
+         let rawValue = balanceInput.value;
+
+         if (rawValue && rawValue !== "") {
+             // Convertimos a número.
+             // Usamos parseFloat y reemplazamos comas por puntos por si acaso.
+             let numericValue = parseFloat(rawValue.replace(",", "."));
+
+             // Ajustamos el <select> de Suma o Resta según el signo
+             if (numericValue < 0) {
+                 operacionSelect.value = "negativo";
+             } else {
+                 operacionSelect.value = "positivo";
+             }
+
+             // Tomamos el valor absoluto y lo redondeamos (asumiendo que no usas centavos)
+             let absValue = Math.abs(Math.round(numericValue));
+
+             // Ahora sí, formateamos solo el valor absoluto para mostrarlo
+             balanceInput.value = absValue.toLocaleString('es-CO');
+         }
+
+         //******* 2. Reaplicar formato mientras se escribe ***********//
+         balanceInput.addEventListener("input", (e) => {
+             let valor = e.target.value.replace(/\D/g, ""); // eliminar todo excepto dígitos
+
+             // Pequeña mejora: formatear solo si hay valor
+             if (valor) {
+                  e.target.value = new Intl.NumberFormat("es-CO").format(valor);
+             } else {
+                  e.target.value = ""; // Permitir que el campo quede vacío
+             }
+         });
+
+         //******* 3. Quitar formato y aplicar signo antes de enviar  ***********//
+         document.querySelector("form").addEventListener("submit", () => {
+             // Quitar los puntos (separadores de mil de 'es-CO')
+             let valorLimpio = balanceInput.value.replace(/\./g, "");
+
+             if (operacionSelect.value === "negativo" && valorLimpio !== "") {
+                 valorLimpio = "-" + valorLimpio;
+             }
+
+             // Pequeña mejora: si el valor queda vacío, enviar "0"
+             if (valorLimpio === "" || valorLimpio === "-") {
+                 valorLimpio = "0";
+             }
+
+             balanceInput.value = valorLimpio;
+         });
+
+        $(function(){
+            $("#TipoOperacionId").change(async function(){
+                const valorSeleccionado = $(this).val();
+
+                const respuesta = await fetch(urlObtenerCategorias, {
+                    method: 'POST',
+                    body: valorSeleccionado,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const json = await respuesta.json();
+                const opciones = json.map(categoria => `<option value="${categoria.value}">${categoria.text}</option>`);
+                $("#CategoriaId").html(opciones);
+            })
+        })
+        operacionSelect.addEventListener("change", () => {
+            if (operacionSelect.value === "positivo") {
+                operacionSelect.style.background = "rgba(0, 255, 120, 0.9)"; // verde brillante
+                operacionSelect.style.color = "#0b132b";
+                operacionSelect.style.background = "linear-gradient(45deg, #00ff99, #00cc66)";
+                  
+            } else if (operacionSelect.value === "negativo") {
+                operacionSelect.style.background = "rgba(255, 70, 70, 0.9)"; // rojo vivo             
+                operacionSelect.style.background = "linear-gradient(45deg, #ff4d4d, #cc0000)";
+            }else{
+                operacionSelect.style.background = "rgba(0, 255, 120, 0.9)"; // verde brillante
+                operacionSelect.style.color = "#0b132b";
+                operacionSelect.style.background = "linear-gradient(45deg, #00ff99, #00cc66)";
+            }
+        });
+        operacionSelect.dispatchEvent(new Event("change"));
+    </script>
+}

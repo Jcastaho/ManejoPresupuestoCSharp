@@ -51,7 +51,7 @@
 
     .total-card .icon-wrapper {
         font-size: 2.8rem;
-        opacity: 0.2;
+        opacity: 0.6;
     }
 
 /* Colores para las tarjetas */
@@ -244,3 +244,65 @@
 /* --- ========================================== --- */
 /* --- =====TERMINA INDEX DE CREAR CUENTA======== --- */
 /* --- ========================================== --- */
+
+
+
+/* === CORRECCIONES MODO OSCURO (VISTA: Cuentas/Index) === */
+
+/* 1. Fondo del contenedor principal */
+.dark-mode .vista-cuentas-moderna {
+    background-color: #161b22; /* Un fondo oscuro, pero que sigue agrupando */
+}
+
+/* 2. Título H1 */
+.dark-mode .header-cuentas h1 {
+    color: #e6edf3; /* Color de texto principal */
+}
+
+/* 3. Acordeón */
+.dark-mode .acordeon-cuentas-moderno .accordion-item {
+    border-bottom-color: #30363d; /* Borde oscuro */
+}
+
+.dark-mode .acordeon-cuentas-moderno .accordion-button {
+    background-color: transparent;
+    color: #c9d1d9; /* Texto del acordeón colapsado */
+}
+
+    .dark-mode .acordeon-cuentas-moderno .accordion-button:not(.collapsed) {
+        background-color: #21262d; /* Fondo "activo" oscuro */
+        color: #58a6ff; /* Color primario dark */
+    }
+
+    .dark-mode .acordeon-cuentas-moderno .accordion-button:focus {
+        box-shadow: none;
+    }
+
+/* 4. Contador de cuentas (texto muted) */
+.dark-mode .contador-cuentas {
+    color: #8b949e; /* Mismo color que .text-muted */
+}
+
+/* 5. Badges y balances (Activo/Pasivo) */
+
+/* Balances en el header del acordeón (solo texto) */
+.dark-mode .balance-tipo-cuenta.activo {
+    color: #56d364; /* Verde brillante */
+    background-color: transparent !important; /* Respetar la regla original */
+}
+
+.dark-mode .balance-tipo-cuenta.pasivo {
+    color: #f85149; /* Rojo brillante */
+    background-color: transparent !important; /* Respetar la regla original */
+}
+
+/* Badges en la lista (con fondo oscuro) */
+.dark-mode .balance-cuenta-badge.activo {
+    color: #56d364; /* Verde brillante */
+    background-color: rgba(56, 139, 68, 0.15); /* Fondo verde oscuro traslúcido */
+}
+
+.dark-mode .balance-cuenta-badge.pasivo {
+    color: #f85149; /* Rojo brillante */
+    background-color: rgba(248, 81, 73, 0.1); /* Fondo rojo oscuro traslúcido */
+}

@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
     <link rel="stylesheet" href="ManejoPresupuesto.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- NUEVO: Modo oscuro -->
+    <script>
+        // Carga preferencia previa
+        if (localStorage.getItem("theme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -36,6 +43,14 @@
                             <a class="nav-link text-dark" asp-controller="Categorias" asp-action="Index">Categorias</a>
                         </li>
                     </ul>
+                    <!-- NUEVO: Botón modo oscuro -->
+                    <div class="theme-toggle">
+                        <input type="checkbox" id="themeSwitch" class="theme-switch">
+                        <label for="themeSwitch" class="switch-label">
+                            <i class="bi bi-brightness-high-fill sun-icon"></i>
+                            <i class="bi bi-moon-fill moon-icon"></i>
+                        </label>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -55,6 +70,21 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- NUEVO: Script de modo oscuro -->
+    <script>
+        const toggleSwitch = document.getElementById('themeSwitch');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.getItem("theme") === "dark") toggleSwitch.checked = true;
+
+        toggleSwitch.addEventListener("change", () => {
+            htmlElement.classList.toggle("dark-mode");
+            const isDark = htmlElement.classList.contains("dark-mode");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

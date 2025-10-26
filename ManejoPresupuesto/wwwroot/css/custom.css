@@ -1,147 +1,312 @@
-﻿/* --- Encabezado general --- */
-.page-header {
+﻿﻿.page-header {
+    align-items: flex-start;
+    border-bottom: 1px solid #e5e7eb;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     margin-bottom: 1.75rem;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 1rem;
+    padding-bottom: 1rem
 }
 
-/* --- Contenedor principal del header --- */
 .header-content {
-    display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-    width: 100%;
+    display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    justify-content: space-between;
+    width: 100%
 }
 
-/* --- Texto del encabezado --- */
 .header-text {
-    flex: 1;
+    flex: 1
 }
-
 
 .page-title {
-    font-size: 2.1rem;
-    font-weight: 700;
+    align-items: center;
     color: #1f2937;
     display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem
 }
 
 .page-description {
-    font-size: 1.05rem;
     color: #6b7280;
+    font-size: 1.05rem;
     line-height: 1.55;
-    max-width: 680px;
+    max-width: 680px
 }
 
 .btn-create {
-    display: inline-flex;
     align-items: center;
+    background-color: transparent;
+    border-radius: 0.75rem;
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+    display: inline-flex;
+    font-size: 0.95rem;
+    font-weight: 600;
     gap: 0.35rem;
     padding: 0.65rem 1.3rem;
-    font-weight: 600;
-    border-radius: 0.75rem;
-    font-size: 0.95rem;
-    transition: all 0.25s ease;
-    background-color: transparent; /* fondo transparente */
-    color: #0d6efd; /* color del texto e ícono */
-    border: 2px solid #0d6efd; /* borde contorneado */
-}
-.btn-create:hover {
-    background-color: #0d6efd; /* cambia a fondo azul al pasar el mouse */
-    color: #fff; /* texto e ícono en blanco */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
-
+    transition: all 0.25s ease
 }
 
-/* Icono dentro del botón */
-.btn-create i {
-    font-size: 1.1rem;
-    transition: transform 0.2s ease;
-}
-/* Ligeramente mueve el ícono al pasar el mouse */
-.btn-create:hover i {
-    transform: rotate(90deg);
+    .btn-create:hover {
+        background-color: #0d6efd;
+        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+        color: #fff;
+        transform: translateY(-2px)
+    }
 
-}
+    .btn-create i {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease
+    }
 
+    .btn-create:hover i {
+        transform: rotate(90deg)
+    }
 
-/* --- Responsividad elegante --- */
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-start
     }
 
     .header-action {
-        width: 100%;
         justify-content: flex-start;
+        width: 100%
     }
 
     .btn-create {
-        width: 100%;
         justify-content: center;
+        width: 100%
     }
 }
 
-
-/* --- Ajustes generales para consistencia visual --- */
 table.table {
+    background-color: var(--bs-table-bg, #fff);
     border-radius: 0.75rem;
+    color: #212529;
     overflow: hidden;
-    background-color: #fff;
+    transition: background-color 0.3s ease, color 0.3s ease
 }
 
 .table-hover tbody tr:hover {
-    background-color: #f9fafc;
+    background-color: #f9fafc
 }
 
 .btn {
-    border-radius: 0.5rem;
+    border-radius: 0.5rem
 }
 
-/* --- Para mantener coherencia con el área de arrastre existente --- */
 .handle {
     cursor: grab;
     user-select: none;
-    width: 40px;
+    width: 40px
 }
 
-.handle:active {
-    cursor: grabbing;
-}
+    .handle:active {
+        cursor: grabbing
+    }
 
 .drag-icon {
-    font-size: 1.3rem;
     color: #6c757d;
-    transition: color 0.2s ease;
+    font-size: 1.3rem;
+    transition: color 0.2s ease
 }
 
 .handle:hover .drag-icon {
-    color: #0d6efd;
+    color: #0d6efd
 }
 
 .dragging {
     background-color: #f8f9fa;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transform: scale(1.01);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease
 }
 
 .sortable-placeholder {
-    height: 48px;
     background-color: #e9ecef;
     border: 2px dashed #adb5bd;
+    height: 48px
 }
 
+.theme-toggle {
+    align-items: center;
+    display: flex;
+    margin-left: 1rem
+}
 
+.theme-switch {
+    display: none
+}
 
+.switch-label {
+    align-items: center;
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.4);
+    cursor: pointer;
+    display: flex;
+    height: 26px;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 48px
+}
 
+.sun-icon, .moon-icon {
+    color: #fff;
+    font-size: 1rem;
+    position: absolute;
+    transition: all 0.4s ease
+}
 
+.moon-icon {
+    opacity: 0;
+    transform: translateX(10px)
+}
+
+.theme-switch:checked + .switch-label {
+    background: linear-gradient(45deg, #212529, #0d6efd);
+    box-shadow: 0 0 15px rgba(0, 13, 255, 0.6)
+}
+
+    .theme-switch:checked + .switch-label .sun-icon {
+        opacity: 0;
+        transform: translateX(-10px)
+    }
+
+    .theme-switch:checked + .switch-label .moon-icon {
+        opacity: 1;
+        transform: translateX(0)
+    }
+
+.dark-mode {
+    background-color: #0d1117;
+    color: #e6edf3
+}
+
+    .dark-mode body {
+        background-color: #0d1117;
+        color: #e6edf3
+    }
+
+    .dark-mode .navbar, .dark-mode .footer, .dark-mode .glass-card, .dark-mode .card {
+        background-color: #161b22 !important;
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6)
+    }
+
+        .dark-mode .navbar .nav-link {
+            color: #c9d1d9 !important
+        }
+
+            .dark-mode .navbar .nav-link:hover {
+                color: #58a6ff !important
+            }
+
+    .dark-mode table.table, .dark-mode table.table thead, .dark-mode table.table tbody, .dark-mode table.table tr, .dark-mode table.table td, .dark-mode table.table th {
+        background-color: #1c2128 !important;
+        border-color: #30363d !important;
+        color: #e6edf3 !important
+    }
+
+    .dark-mode .table-hover tbody tr:hover {
+        background-color: #21262d
+    }
+
+    .dark-mode .btn, .dark-mode .btn-create {
+        border-color: #58a6ff;
+        color: #58a6ff
+    }
+
+        .dark-mode .btn:hover, .dark-mode .btn-create:hover {
+            background-color: #58a6ff;
+            color: #0d1117
+        }
+
+html, body, .navbar, .card, .footer {
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease
+}
+
+.dark-mode .form-control, .dark-mode .form-select {
+    background-color: #21262d;
+    border-color: #30363d;
+    color: #e6edf3
+}
+
+    .dark-mode .form-control:focus, .dark-mode .form-select:focus {
+        background-color: #21262d;
+        border-color: #58a6ff;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        color: #e6edf3
+    }
+
+    .dark-mode .form-control::placeholder {
+        color: #6e7681
+    }
+
+.dark-mode .form-label, .dark-mode .form-check-label {
+    color: #c9d1d9
+}
+
+.dark-mode .bg-white, .dark-mode .bg-light {
+    background-color: #161b22 !important
+}
+
+.dark-mode .text-dark {
+    color: #e6edf3 !important
+}
+
+.dark-mode .text-muted {
+    color: #8b949e !important
+}
+
+.dark-mode .card-header, .dark-mode .modal-header {
+    border-bottom-color: #30363d
+}
+
+.dark-mode .card-footer, .dark-mode .modal-footer {
+    border-top-color: #30363d
+}
+
+.dark-mode .modal-content {
+    background-color: #161b22;
+    border-color: rgba(255, 255, 255, 0.1)
+}
+
+.dark-mode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%)
+}
+
+.dark-mode .list-group-item {
+    background-color: #161b22;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e6edf3
+}
+
+.dark-mode .acordeon-cuentas-moderno .accordion-button.collapsed {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+    color: #c9d1d9 !important
+}
+
+.dark-mode .page-title {
+    color: #e6edf3 !important
+}
+
+.dark-mode .page-description {
+    color: #dadcde !important
+}
+
+.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1) brightness(1.8);
+    transition: filter 0.3s ease
+}
+
+.dark-mode input[type="date"]:hover::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(2.2)
+}
