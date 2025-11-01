@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
 
 namespace ManejoPresupuesto.Models
 {
@@ -7,7 +6,6 @@ namespace ManejoPresupuesto.Models
     {
         public IEnumerable<SelectListItem> Categorias { get; set; }
         public IEnumerable<SelectListItem> Cuentas { get; set; }
-        [Display(Name = "Tipo de Operación")]
-        public TipoOperacion TipoOperacionId { get; set; }
+
     }
 }
