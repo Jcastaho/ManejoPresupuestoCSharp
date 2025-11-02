@@ -45,7 +45,7 @@ namespace ManejoPresupuesto.Servicios
         public async Task<Cuenta> ObtenerPorId(int id, int usuarioId)
         {
             using var connection = new SqlConnection(connectionString);
-            var sql = @"SELECT Cuentas.Id, Cuentas.Nombre, Balance, Descripcion, Cuentas.TipoCuentaId
+            var sql = @"SELECT Cuentas.Id, Cuentas.Nombre, Balance, Descripcion, TipoCuentaId
                         FROM Cuentas
                         INNER JOIN TiposCuentas tc
                         ON tc.Id = Cuentas.TipoCuentaId

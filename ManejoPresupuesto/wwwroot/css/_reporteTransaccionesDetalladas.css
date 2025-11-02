@@ -1,0 +1,138 @@
+﻿/* --- ================================== --- */
+/* --- =====VISTA BALANCE MENSUAL======== --- */
+/* --- ================================== --- */
+
+.vista-balance-mensual {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+/* --- Header --- */
+.header-balance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+    .header-balance h4 {
+        margin: 0;
+        font-weight: 700;
+        color: #333;
+        text-transform: capitalize;
+    }
+
+/* --- Tarjetas de balance --- */
+.balance-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.balance-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+    .balance-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .balance-card .icon-wrapper {
+        font-size: 2.5rem;
+        opacity: 0.7;
+    }
+
+    .balance-card .content {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .balance-card .content strong {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #6c757d;
+        }
+
+    .balance-card .valor {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    /* --- Colores de cada tarjeta --- */
+    .balance-card.deposito .icon-wrapper,
+    .balance-card.deposito .valor {
+        color: #198754;
+    }
+
+    .balance-card.retiro .icon-wrapper,
+    .balance-card.retiro .valor {
+        color: #dc3545;
+    }
+
+    .balance-card.total .icon-wrapper,
+    .balance-card.total .valor {
+        color: #0d6efd;
+    }
+
+/* --- Animación --- */
+.animate__fadeIn {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- ========================================== --- */
+/* --- ===== MODO OSCURO BALANCE MENSUAL ======== --- */
+/* --- ========================================== --- */
+
+.dark-mode .vista-balance-mensual {
+    background-color: #161b22;
+}
+
+.dark-mode .header-balance h4 {
+    color: #e6edf3;
+}
+
+.dark-mode .balance-card {
+    background-color: #21262d;
+    box-shadow: 0 0 0 1px #30363d;
+}
+
+    .dark-mode .balance-card .content strong {
+        color: #8b949e;
+    }
+
+    .dark-mode .balance-card.deposito .valor,
+    .dark-mode .balance-card.deposito .icon-wrapper {
+        color: #56d364;
+    }
+
+    .dark-mode .balance-card.retiro .valor,
+    .dark-mode .balance-card.retiro .icon-wrapper {
+        color: #f85149;
+    }
+
+    .dark-mode .balance-card.total .valor,
+    .dark-mode .balance-card.total .icon-wrapper {
+        color: #58a6ff;
+    }
