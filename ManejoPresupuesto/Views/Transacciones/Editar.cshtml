@@ -50,7 +50,10 @@
             </div>
 
             <div class="form-floating grupo">
-                <select asp-for="CategoriaId" class="form-select"></select>
+                <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-select">
+                    @* Opcional: puedes dejar un 'option' por defecto *@
+                    <option value="">-- Seleccione una categoría --</option>
+                </select>
                 <label asp-for="CategoriaId"></label>
             </div>
 
