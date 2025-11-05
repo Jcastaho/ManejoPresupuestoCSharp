@@ -1,0 +1,15 @@
+﻿@model DateTime
+
+<div class="header-balance">
+    <a asp-route-mes="@ViewBag.mesAnterior" asp-route-anio="@ViewBag.anioAnterior"
+       class="btn btn-outline-secondary">
+        <i class="bi-chevron-left"></i>
+    </a>
+
+    <h4>@Model.ToString("MMMM yyyy")</h4>
+
+    <a asp-route-mes="@ViewBag.mesPosterior" asp-route-anio="@ViewBag.anioPosterior"
+       class="btn btn-outline-secondary">
+        <i class="bi-chevron-right"></i>
+    </a>
+</div>

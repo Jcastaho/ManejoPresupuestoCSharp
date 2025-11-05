@@ -1,52 +1,20 @@
 ﻿@model ReporteTransaccionesDetalladas
 
-
+@{
+    var resumenMontos = new ResumenMontosViewModel()
+    {
+        Ingresos = Model.BalanceDepositos,
+        Gastos = Model.BalanceRetiros,
+        Total = Model.Total
+    };
+}
 <div class="vista-balance-mensual animate__fadeIn">
-    <div class="header-balance">
-        <a asp-route-mes="@ViewBag.mesAnterior" asp-route-anio="@ViewBag.anioAnterior"
-           class="btn btn-outline-secondary">
-            <i class="bi-chevron-left"></i>
-        </a>
 
-        <h4>@Model.FechaInicio.ToString("MMMM yyyy")</h4>
+    <partial name="_NavegarPorMeses" model="@Model.FechaInicio" />
 
-        <a asp-route-mes="@ViewBag.mesPosterior" asp-route-anio="@ViewBag.anioPosterior"
-           class="btn btn-outline-secondary">
-            <i class="bi-chevron-right"></i>
-        </a>
-    </div>
+    <partial name="_ResumenMontos" model="@resumenMontos" />
 
-    <div class="balance-cards">
-        <div class="balance-card deposito">
-            <div class="icon-wrapper">
-                <i class="bi bi-arrow-down-circle"></i>
-            </div>
-            <div class="content">
-                <strong>Depósitos</strong>
-                <span class="valor">@Model.BalanceDepositos.ToString("N")</span>
-            </div>
-        </div>
 
-        <div class="balance-card retiro">
-            <div class="icon-wrapper">
-                <i class="bi bi-arrow-up-circle"></i>
-            </div>
-            <div class="content">
-                <strong>Retiros</strong>
-                <span class="valor">@Model.BalanceRetiros.ToString("N")</span>
-            </div>
-        </div>
-
-        <div class="balance-card total">
-            <div class="icon-wrapper">
-                <i class="bi bi-wallet2"></i>
-            </div>
-            <div class="content">
-                <strong>Total</strong>
-                <span class="valor">@Model.Total.ToString("N")</span>
-            </div>
-        </div>
-    </div>
 </div>
 
 @if (Model.TransaccionesAgrupadas.Count() == 0)
