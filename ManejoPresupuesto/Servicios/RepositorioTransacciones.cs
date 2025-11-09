@@ -13,6 +13,7 @@ namespace ManejoPresupuesto.Servicios
         Task<IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo);
         Task<IEnumerable<Transaccion>> ObtenerPorUsuarioId(ParametroObtenerTransaccionesPorUsuario modelo);
         Task<IEnumerable<ResultadoObtenerPorSemana>> ObtenerPorSemana(ParametroObtenerTransaccionesPorUsuario modelo);
+        Task<IEnumerable<ResultadoObtenerPorMes>> ObtenerPorMes(int usuarioId, int anio);
     }
     public class RepositorioTransacciones : IRepositorioTransacciones
     {
@@ -63,7 +64,7 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new SqlConnection(connectionString);
             return await connection.QueryAsync<Transaccion>(
                 @"SELECT t.Id, t.Monto, t.FechaTransaccion, c.Nombre as Categoria,
-                cu.Nombre as Cuenta, c.TipoOperacionId
+                cu.Nombre as Cuenta, c.TipoOperacionId, Nota
                 FROM Transacciones t
                 INNER JOIN Categorias c
                 ON c.Id = t.CategoriaId
@@ -119,6 +120,21 @@ namespace ManejoPresupuesto.Servicios
                 FechaTransaccion BETWEEN @fechaInicio and @fechaFin
                 GROUP BY datediff(d, @fechaInicio, FechaTransaccion) / 7, cat. TipoOperacionId",
                 modelo);
+        }
+
+        public async Task<IEnumerable<ResultadoObtenerPorMes>> ObtenerPorMes(
+            int usuarioId, int anio)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<ResultadoObtenerPorMes>(
+                @"SELECT MONTH(FechaTransaccion) as Mes,
+                SUM(Monto) as Monto, cat. TipoOperacionId
+                FROM Transacciones
+                INNER JOIN Categorias cat
+                ON cat.Id = Transacciones. CategoriaId
+                WHERE Transacciones. UsuarioId = @usuarioId AND YEAR(FechaTransaccion) = @anio
+                GROUP BY Month (FechaTransaccion), cat.TipoOperacionId",
+                new { usuarioId, anio });
         }
 
         public async Task Borrar(int id)
