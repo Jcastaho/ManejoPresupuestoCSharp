@@ -1,6 +1,44 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Calendario";
 }
 
-<partial name="_SubMenu" model="SubMenuTransacciones.Calendario"/>
+<partial name="_SubMenu" model="SubMenuTransacciones.Calendario" />
+
+<div id="calendario"></div>
+
+
+<div class="modal fade" id="modalTransacciones" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendario');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                events: '/transacciones/ObtenerTransaccionesCalendario',
+                dayMaxEventRows: 3,
+                dateClick: async function (info) {
+                    await obtenerTransacciones(info.dateStr);
+                }
+            });
+            calendar.render();
+        });
+        async function obtenerTransacciones(fecha) {
+            const response = await 
+            fetch(`/transacciones/ObtenerTransaccionesPorFecha?fecha=${fecha}`,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });    
+            const data = await response.json();
+            console.log(data);
+        }
+    </script>
+}
